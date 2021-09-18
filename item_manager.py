@@ -14,9 +14,7 @@ class Item(object):
         self.ore_type = ore_type
         self.base_value = value
         self.value = self.base_value
-        self.x = grid_x
-        self.y = grid_y
-        self.rect = pygame.Rect((self.y + CONFIG.ITEM_COLLIDER_HITBOX, self.x + CONFIG.ITEM_COLLIDER_HITBOX), (CONFIG.TILE_SIZE - (CONFIG.ITEM_COLLIDER_HITBOX * 2), CONFIG.TILE_SIZE - (CONFIG.ITEM_COLLIDER_HITBOX * 2)))
+        self.rect = pygame.Rect((grid_y + CONFIG.ITEM_COLLIDER_HITBOX, grid_x + CONFIG.ITEM_COLLIDER_HITBOX), (CONFIG.TILE_SIZE - (CONFIG.ITEM_COLLIDER_HITBOX * 2), CONFIG.TILE_SIZE - (CONFIG.ITEM_COLLIDER_HITBOX * 2)))
         self.direction = rotation
         self.moving = True
         self.tiles_used = []
@@ -62,15 +60,22 @@ class Item(object):
                         return "export", current_tile
 
                     elif type(tile).__name__ == "SimpleUpgraderTile":
-                        if tile not in self.tiles_used:
-                            self.value = tile.func(self.value)
-                            self.tiles_used.append(tile)
-                            return False, current_tile
+                        if self.direction == tile.rotation:
+                            if tile not in self.tiles_used:
+                                use_count = 0
+                                for tile_used in self.tiles_used:
+                                    if type(tile_used).__name__ == "SimpleUpgraderTile":
+                                        use_count += 1
+
+                                if use_count < tile.upgrade_cap:
+                                    self.value = tile.func(self.value)
+                                    self.tiles_used.append(tile)
+                                    return False, current_tile
+                        else:
+                            return "dead", current_tile
 
         self.rect.x += kwargs.get("belt_speed_value") * self.vector[0]
         self.rect.y += kwargs.get("belt_speed_value") * self.vector[1]
-        self.x = self.rect.x
-        self.y = self.rect.y
 
 
 def spawn_ore(display, rotation, spawn_tile_grid_y, spawn_tile_grid_x):

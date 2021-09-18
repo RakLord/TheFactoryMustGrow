@@ -109,6 +109,7 @@ class SimpleUpgraderTile(object):
         self.type = "simple_upgrader_tile"
         self.rotation = rotation
         self.base_add = 5
+        self.upgrade_cap = 1
 
     def draw(self, display, index1, index2):
         draw(CONFIG.IMAGES[self.type], display, index1, index2, self.rotation)
