@@ -14,7 +14,8 @@ GRID_WIDTH = WINDOW_WIDTH // TILE_SIZE
 GRID_HEIGHT = (WINDOW_HEIGHT - 256) // TILE_SIZE
 
 UI_START = WINDOW_HEIGHT - (WINDOW_HEIGHT - WINDOW_WIDTH)
-
+UI_BUTTON_SIZE = UI_BUTTON_WIDTH, UI_BUTTON_HEIGHT = 64, 32
+UI_PADDING = 4
 GAME_CLOCK = pygame.time.Clock()
 
 
@@ -34,5 +35,8 @@ IMAGES = {"empty_tile": pygame.image.load("images/empty_tile.png"),
           "iron_ore": pygame.image.load("images/iron_clump.png"),
           "simple_upgrader_tile": pygame.image.load("images/simple_upgrader_tile.png"),
           "electric_upgrader_tile": pygame.image.load("images/electric_upgrader_tile.png"),
-          "export_tile": pygame.image.load("images/export_tile.png")}
+          "export_tile": pygame.image.load("images/export_tile.png"),
+          "upgrades_btn": pygame.image.load("images/btn_upgrades.png"),
+          "prestige_btn": pygame.image.load("images/btn_prestige.png"),
+          "inventory_btn": pygame.image.load("images/btn_inventory.png")}
 

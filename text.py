@@ -6,12 +6,13 @@ def clip(surf, x, y, x_size, y_size):
     clip_rect = pygame.Rect(x, y, x_size, y_size)
     handle_surf.set_clip(clip_rect)
     image = surf.subsurface(handle_surf.get_clip())
+    image.set_colorkey((0, 0, 0))
     return image.copy()
 
 
 class Font:
     def __init__(self, font_path):
-        self.spacing = 1
+        self.spacing = 2
         self.character_order = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
                                 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
                                 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
