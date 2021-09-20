@@ -7,6 +7,7 @@ import inventory_manager as inv
 import item_manager as im
 import grid_manager as gm
 import ui_manager as ui
+import prestige_manager as pm
 from utils import *
 import tiles
 from tiles import belt_tile
@@ -16,6 +17,7 @@ from tiles import export_tile
 from tiles import import_tile
 from tiles import simple_upgrader_tile
 from tiles import locked_tile
+from tiles import enhancer_tile
 
 
 WINDOW_SIZE = WINDOW_WIDTH, WINDOW_HEIGHT = 1920, 1080
@@ -54,5 +56,6 @@ IMAGES = {"empty_tile": pygame.image.load("images/empty_tile.png"),
           "inventory_btn": pygame.image.load("images/btn_inventory.png"),
           "locked_tile": pygame.image.load("images/locked_tile.png"),
           "expand_btn": pygame.image.load("images/btn_expand.png"),
-          "buy_btn": pygame.image.load("images/btn_buy.png")}
+          "buy_btn": pygame.image.load("images/btn_buy.png"),
+          "enhancer_tile": pygame.image.load("images/enhancer_tile.png")}
 

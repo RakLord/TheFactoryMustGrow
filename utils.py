@@ -24,5 +24,5 @@ def output_number(number):
     if number > 1000000:
         num_out = "{:.2e}".format(number)
     else:
-        num_out = number
+        num_out = round(number, 3)
     return num_out

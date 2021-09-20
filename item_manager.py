@@ -73,6 +73,19 @@ class Item(object):
                         else:
                             return "dead", current_tile
 
+                    elif type(tile).__name__ == "EnhancerTile":
+                        if self.direction == tile.rotation:
+                            use_count = 0
+                            for tile_used in self.tiles_used:
+                                if type(tile_used) == "EnhancerTile":
+                                    use_count += 1
+                            if use_count < tile.upgrade_cap:
+                                self.value = tile.func(self.value)
+                                self.tiles_used.append(tile)
+                                return False, current_tile
+                        else:
+                            return "dead", current_tile
+
         if self.rect.x // CONFIG.TILE_SIZE >= CONFIG.GRID_WIDTH or self.rect.y // CONFIG.TILE_SIZE >= CONFIG.GRID_HEIGHT:
             return "dead", current_tile
 
