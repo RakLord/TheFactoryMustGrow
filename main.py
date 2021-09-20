@@ -95,7 +95,7 @@ def game():
 
     inventory = inv.Inventory()
     inventory.selected_item = inventory.inventory[0]["item"]
-    money = 10
+    money = 100000
 
     while game_loop:
         display.fill(colors["gray"])
@@ -134,6 +134,11 @@ def game():
                         pass
                     if display_ui.buttons[2].clicked:  # Prestige Btn
                         pass
+                    if display_ui.buttons[3].clicked:
+                        if money > get_item_price(inventory.inventory[inventory.selected_item_index]):
+                            print(f'Adding: {inventory.inventory[inventory.selected_item_index]["name"]}')
+                            money -= get_item_price(inventory.inventory[inventory.selected_item_index])
+                            inventory.add_item(inventory.inventory[inventory.selected_item_index]["name"], True)
 
         if pygame.mouse.get_pressed()[0]:
             tile_clicked = get_mouse_grid_pos(pygame.mouse.get_pos())
@@ -166,7 +171,6 @@ def game():
                     money += item.value
                     im.active_items.remove(item)
 
-        print(inventory.inventory[inventory.selected_item_index]["quantity"])
         draw_highlight(display, pygame.mouse.get_pos(), inventory.selected_item, rotation)
         display_ui.texts[0].text = f"Money: {output_number(money)}"
         display_ui.texts[1].text = f"Expand price: {output_number(expand_price)}"

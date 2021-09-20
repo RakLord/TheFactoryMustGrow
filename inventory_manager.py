@@ -34,10 +34,10 @@ class Inventory:
             if items["name"] == item:
                 items["quantity"] += 1
                 if to_max:
+                    items["quantity"] += 1
                     items["max_quantity"] += 1
         else:
             for index, items in enumerate(self.available_items):
-
                 if items["name"]:
                     self.inventory.append(self.available_items[index])
 
