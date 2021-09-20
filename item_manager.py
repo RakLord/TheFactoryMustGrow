@@ -1,4 +1,3 @@
-import objects
 from CONFIG import *
 import CONFIG
 import pygame

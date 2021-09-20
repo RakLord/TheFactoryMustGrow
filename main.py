@@ -1,7 +1,5 @@
-import tiles.simple_upgrader_tile
 from CONFIG import *
-import grid_manager as gm
-import item_manager as im
+
 import text
 
 import random
@@ -21,51 +19,6 @@ available_buildings = [tiles.belt_tile.BeltTile,
 
 
 # Funcs
-
-class Ui:
-    def __init__(self, display, start_x, start_y):
-        self.display = display
-        self.start_pos = self.start_x, self.start_y = start_x, start_y
-        self.buttons = []
-        self.texts = []
-        self.small_font = text.Font("./images/small_font.png")
-        self.large_font = text.Font("./images/large_font.png")
-
-    class Button(object):
-        def __init__(self, button_image, x, y, ui_x, ui_y):
-            self.image = button_image
-            self.x = x + ui_x
-            self.y = y + ui_y
-            self.pos = (self.x, self.y)
-            self.rect = pygame.Rect((self.x, self.y), (self.image.get_width(), self.image.get_height()))
-            self.clicked = False
-
-        def click(self, mouse_x, mouse_y):
-            if self.rect.collidepoint((mouse_x, mouse_y)):
-                self.clicked = True
-            else:
-                self.clicked = False
-
-    class Text(object):
-        def __init__(self, new_text, x, y, ui_x, ui_y):
-            self.text = new_text
-            self.x = x + ui_x
-            self.y = y + ui_y
-            self.pos = (self.x, self.y)
-
-    def add_button(self, button_image, x, y):
-        self.buttons.append(self.Button(button_image, x, y, self.start_x, self.start_y))
-
-    def add_text(self, new_text, x, y):
-        self.texts.append(self.Text(new_text, x, y, self.start_x, self.start_y))
-
-    def draw(self):
-        for item in self.buttons:
-            self.display.blit(item.image, item.pos)
-            # pygame.draw.rect(self.display, (245, 250, 200), item.rect, 1)
-
-        for item in self.texts:
-            self.large_font.render(self.display, item.text, item.pos)
 
 
 def output_number(number):
@@ -111,7 +64,7 @@ def draw_highlight(display, mouse_pos, selected_building, rotation):
         row, col = grid_mouse_pos
         # print(row, col)
 
-        hover_building = selected_building(1, 1, rotation)  # First 2 params dont matter as we only need object.type
+        hover_building = selected_building(1, 1, rotation)  # First 2 params don't matter as we only need object.type
         if rotation == 0:
             display.blit(IMAGES[hover_building.type], (col * TILE_SIZE, row * TILE_SIZE), special_flags=BLEND_RGB_ADD)
         if rotation == 1:
@@ -129,7 +82,7 @@ def game():
     pygame.init()
     screen = pygame.display.set_mode(WINDOW_SIZE, 0, 32)
     display = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
-    display_ui = Ui(display, 0, WINDOW_HEIGHT - 256 - 10)
+    display_ui = ui.Ui(display, 0, WINDOW_HEIGHT - 256 - 10)
     display_ui.add_button(IMAGES["upgrades_btn"], WINDOW_WIDTH - 68, (UI_BUTTON_HEIGHT + UI_PADDING) * 0)
     display_ui.add_button(IMAGES["inventory_btn"], WINDOW_WIDTH - 68, (UI_BUTTON_HEIGHT + UI_PADDING) * 1)
     display_ui.add_button(IMAGES["prestige_btn"], WINDOW_WIDTH - 68, (UI_BUTTON_HEIGHT + UI_PADDING) * 2)
@@ -183,7 +136,7 @@ def game():
         if pygame.mouse.get_pressed()[2]:
             tile_clicked = get_mouse_grid_pos(pygame.mouse.get_pos())
             if tile_clicked:
-                gm.place_object(game_grid, tile_clicked, EmptyTile, rotation)
+                gm.place_object(game_grid, tile_clicked, tiles.empty_tile.EmptyTile, rotation)
 
         for row in range(0, GRID_HEIGHT):
             for col in range(0, GRID_WIDTH):
@@ -199,9 +152,6 @@ def game():
                 elif state[0] == "export":
                     money += item.value
                     im.active_items.remove(item)
-
-
-
 
         draw_highlight(display, pygame.mouse.get_pos(), selected_building, rotation)
         display_ui.texts[0].text = f"Money: {output_number(money)}"

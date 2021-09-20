@@ -1,12 +1,14 @@
-import objects
+import CONFIG
 from CONFIG import *
+import tiles
+from tiles import *
 
 
 def new_game_grid():
     new_grid = []
-    for row in range(0, GRID_HEIGHT):
+    for row in range(0, CONFIG.GRID_HEIGHT):
         new_grid.append([])
-        [new_grid[-1].append(tiles.empty_tile.EmptyTile(row, col, 0)) for col in range(0, GRID_WIDTH)]
+        [new_grid[-1].append(tiles.empty_tile.EmptyTile(row, col, 0)) for col in range(0, CONFIG.GRID_WIDTH)]
     # print(f"Rows: {len(new_grid)}")
     # print(f"Cols: {len(new_grid[0])}")
     new_grid[8][0] = tiles.import_tile.ImportTile(8, 0, 1)
@@ -16,5 +18,5 @@ def new_game_grid():
 def place_object(old_grid, place_pos, new_object, rotation):
     new_grid = old_grid
     place_row, place_col = place_pos
-    if place_row <= GRID_HEIGHT:
+    if place_row <= CONFIG.GRID_HEIGHT:
         new_grid[place_row][place_col] = new_object(place_row, place_col, rotation)

@@ -2,7 +2,6 @@ from CONFIG import *
 from utils import *
 
 
-
 class ImportTile(object):
     def __init__(self, grid_col, grid_row, rotation):  # Col/row passed inb backwards cba to fix rn lmao
         self.x = grid_col * CONFIG.TILE_SIZE
