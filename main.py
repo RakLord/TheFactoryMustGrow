@@ -19,7 +19,9 @@ tile_images = {tiles.belt_tile.BeltTile: IMAGES["belt_tile"],
                tiles.export_tile.ExportTile: IMAGES["export_tile"],
                tiles.import_tile.ImportTile: IMAGES["import_tile"],
                tiles.simple_upgrader_tile.SimpleUpgraderTile: IMAGES["simple_upgrader_tile"],
-               tiles.enhancer_tile.EnhancerTile: IMAGES["enhancer_tile"]}
+               tiles.enhancer_tile.EnhancerTile: IMAGES["enhancer_tile"],
+               tiles.doubler_tile.DoublerTile: IMAGES["doubler_tile"],
+               tiles.tripler_tile.TriplerTile: IMAGES["trippler_tile"]}
 
 # Funcs
 
@@ -98,11 +100,11 @@ def game():
     gm.locked_tiles(game_grid, grid_unlocked_level)
 
     prestige_level = 0
-    prestige_base_cost = 100
+    prestige_base_cost = 100000
 
     inventory = inv.Inventory()
     inventory.selected_item = inventory.inventory[0]["item"]
-    money = 0
+    money = 10
 
     while game_loop:
         display.fill(colors["gray"])
@@ -130,7 +132,7 @@ def game():
 
             if event.type == MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    if display_ui.buttons[0].clicked:  # Upgrades Btn
+                    if display_ui.buttons[0].clicked:  # Expand Btn
                         if money > expand_price:
                             gm.locked_tiles(game_grid, grid_unlocked_level + 1)
                             money -= expand_price
@@ -139,12 +141,14 @@ def game():
                     elif display_ui.buttons[1].clicked:  # Inventory Btn
                         pass
                     elif display_ui.buttons[2].clicked:  # Prestige Btn
-                        pass
-                    elif display_ui.buttons[3].clicked:
                         if prestige.prestige_value >= 1:
                             prestige.prestige_value += (money / prestige_base_cost) ** 0.5
                             money = 0
                             inventory.add_item(prestige.pick_new_item())
+                    elif display_ui.buttons[3].clicked:
+                        if money > get_item_price(inventory.inventory[inventory.selected_item_index]):
+                            money -= get_item_price(inventory.inventory[inventory.selected_item_index])
+                            inventory.add_item(inventory.inventory[inventory.selected_item_index]["name"], True)
 
         if pygame.mouse.get_pressed()[0]:
             tile_clicked = get_mouse_grid_pos(pygame.mouse.get_pos())

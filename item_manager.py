@@ -86,6 +86,21 @@ class Item(object):
                         else:
                             return "dead", current_tile
 
+                    elif type(tile).__name__ == "DoublerTile":
+                        if self.direction == tile.rotation:
+                            use_count = 0
+                            for tile_used in self.tiles_used:
+                                if type(tile_used) == "DoublerTile":
+                                    use_count += 1
+                            if use_count < tile.upgrade_cap:
+                                self.direction = tile.rotation
+                                spawn_rotation = tile.func(self.display)
+                                spawn_ore(self.display, spawn_rotation, self.rect.y, self.rect.x)
+                                self.tiles_used.append(tile)
+                                return False, current_tile
+                        else:
+                            return "dead", current_tile
+
         if self.rect.x // CONFIG.TILE_SIZE >= CONFIG.GRID_WIDTH or self.rect.y // CONFIG.TILE_SIZE >= CONFIG.GRID_HEIGHT:
             return "dead", current_tile
 

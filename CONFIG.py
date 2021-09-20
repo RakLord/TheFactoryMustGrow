@@ -18,6 +18,8 @@ from tiles import import_tile
 from tiles import simple_upgrader_tile
 from tiles import locked_tile
 from tiles import enhancer_tile
+from tiles import doubler_tile
+from tiles import tripler_tile
 
 
 WINDOW_SIZE = WINDOW_WIDTH, WINDOW_HEIGHT = 1920, 1080
@@ -57,5 +59,7 @@ IMAGES = {"empty_tile": pygame.image.load("images/empty_tile.png"),
           "locked_tile": pygame.image.load("images/locked_tile.png"),
           "expand_btn": pygame.image.load("images/btn_expand.png"),
           "buy_btn": pygame.image.load("images/btn_buy.png"),
-          "enhancer_tile": pygame.image.load("images/enhancer_tile.png")}
+          "enhancer_tile": pygame.image.load("images/enhancer_tile.png"),
+          "doubler_tile": pygame.image.load("images/doubler_tile.png"),
+          "trippler_tile": pygame.image.load("images/trippler_tile.png")}
 
