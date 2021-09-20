@@ -1,6 +1,6 @@
 import CONFIG
 from CONFIG import *
-import text
+import text_manager
 
 
 class Ui:
@@ -9,8 +9,8 @@ class Ui:
         self.start_pos = self.start_x, self.start_y = start_x, start_y
         self.buttons = []
         self.texts = []
-        self.small_font = text.Font("./images/small_font.png")
-        self.large_font = text.Font("./images/large_font.png")
+        self.small_font = text_manager.Font("./images/small_font.png")
+        self.large_font = text_manager.Font("./images/large_font.png")
 
     class Button(object):
         def __init__(self, button_image, x, y, ui_x, ui_y):
@@ -43,7 +43,8 @@ class Ui:
     def draw(self):
         for item in self.buttons:
             self.display.blit(item.image, item.pos)
-            # pygame.draw.rect(self.display, (245, 250, 200), item.rect, 1)
+            if CONFIG.DRAW_COLLIDERS:
+                pygame.draw.rect(self.display, (245, 250, 200), item.rect, 1)
 
         for item in self.texts:
             self.large_font.render(self.display, item.text, item.pos)

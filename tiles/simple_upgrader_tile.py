@@ -14,7 +14,8 @@ class SimpleUpgraderTile(object):
 
     def draw(self, display, index1, index2):
         draw(CONFIG.IMAGES[self.type], display, index1, index2, self.rotation)
-        # pygame.draw.rect(display, (105, 250, 20), self.rect, 1)
+        if CONFIG.DRAW_COLLIDERS:
+            pygame.draw.rect(display, (105, 250, 20), self.rect, 1)
 
     def func(self, start_value):
         new_value = start_value + self.base_add

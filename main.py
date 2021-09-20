@@ -1,6 +1,6 @@
 from CONFIG import *
 
-import text
+import text_manager
 
 import random
 

@@ -30,6 +30,7 @@ GAME_CLOCK = pygame.time.Clock()
 
 ITEM_COLLIDER_HITBOX = 12  # higher = smaller
 
+DRAW_COLLIDERS = False
 
 colors = {"gray": (44, 53, 49),
           "blue": (17, 100, 102),

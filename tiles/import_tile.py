@@ -14,7 +14,8 @@ class ImportTile(object):
 
     def draw(self, display, index1, index2):
         draw(CONFIG.IMAGES[self.type], display, index1, index2, self.rotation)
-        # pygame.draw.rect(display, (255, 40, 20), self.rect, 1)
+        if CONFIG.DRAW_COLLIDERS:
+            pygame.draw.rect(display, (255, 40, 20), self.rect, 1)
 
     def spawn(self, display, spawn_cooldown):
         time = pygame.time.get_ticks()

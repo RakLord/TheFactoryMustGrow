@@ -29,7 +29,8 @@ class Item(object):
 
     def draw(self, display):
         self.display.blit(CONFIG.IMAGES[self.ore_type], (self.rect.x - self.rect.width, self.rect.y - self.rect.height - 4))
-        pygame.draw.rect(display, (245, 250, 200), self.rect, 1)
+        if CONFIG.DRAW_COLLIDERS:
+            pygame.draw.rect(display, (245, 250, 200), self.rect, 1)
 
     def tick(self, **kwargs):
 
