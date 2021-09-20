@@ -12,7 +12,8 @@ class Inventory:
 
         self.available_items = [{"item": tiles.belt_tile.BeltTile, "quantity": 1, "max_quantity": 1, "name": "BeltTile", "base_price": 5, "description": "Moves items around the factory"},
                                 {"item": tiles.export_tile.ExportTile, "quantity": 1,  "max_quantity": 1, "name": "ExportTile", "base_price": 100, "description": "Exports items for money!"},
-                                {"item": tiles.simple_upgrader_tile.SimpleUpgraderTile, "quantity": 1, "max_quantity": 1, "name": "SimpleUpgraderTile", "base_price": 100, "description": "Upgrades ores.Max 1"}]
+                                {"item": tiles.simple_upgrader_tile.SimpleUpgraderTile, "quantity": 1, "max_quantity": 1, "name": "SimpleUpgraderTile", "base_price": 100, "description": "Upgrades ores.Max 1"},
+                                {"item": tiles.electric_upgrader_tile.ElectricUpgraderTile, "quantity": 1, "max_quantity": 1, "name": "ElectricUpgraderTile", "base_price": 600, "description": "Enhances ores with electricity"}]
 
         self.selected_item = None
         self.selected_item_quantity = 4
