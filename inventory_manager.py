@@ -6,11 +6,13 @@ import tiles
 class Inventory:
     def __init__(self):
         self.selected_item_index = 0
-        self.inventory = [{"item": tiles.belt_tile.BeltTile, "quantity": 4, "max_quantity": 4, "name": "BeltTile", "base_price": 5},
-                          {"item": tiles.export_tile.ExportTile, "quantity": 1, "max_quantity": 1, "name": "ExportTile", "base_price": 100}]
+        self.inventory = [{"item": tiles.belt_tile.BeltTile, "quantity": 4, "max_quantity": 4, "name": "BeltTile", "base_price": 5, "description": "Moves items around the factory"},
+                          {"item": tiles.export_tile.ExportTile, "quantity": 1, "max_quantity": 1, "name": "ExportTile", "base_price": 50, "description": "Exports items for money"},
+                          {"item": tiles.simple_upgrader_tile.SimpleUpgraderTile, "quantity": 1, "max_quantity": 1, "name": "SimpleUpgraderTile", "base_price": 100, "description": "Upgrades ores. Max 1"}]
 
-        self.available_items = [{"item": tiles.belt_tile.BeltTile, "quantity": 1, "max_quantity": 1, "name": "BeltTile", "base_price": 5},
-                                {"item": tiles.export_tile.ExportTile, "quantity": 1,  "max_quantity": 1, "name": "ExportTile", "base_price": 100}]
+        self.available_items = [{"item": tiles.belt_tile.BeltTile, "quantity": 1, "max_quantity": 1, "name": "BeltTile", "base_price": 5, "description": "Moves items around the factory"},
+                                {"item": tiles.export_tile.ExportTile, "quantity": 1,  "max_quantity": 1, "name": "ExportTile", "base_price": 100, "description": "Exports items for money!"},
+                                {"item": tiles.simple_upgrader_tile.SimpleUpgraderTile, "quantity": 1, "max_quantity": 1, "name": "SimpleUpgraderTile", "base_price": 100, "description": "Upgrades ores.Max 1"}]
 
         self.selected_item = None
         self.selected_item_quantity = 4

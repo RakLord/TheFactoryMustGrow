@@ -83,6 +83,7 @@ def game():
     display_ui.add_text("Expand Cost: 0", 8, 18)
     display_ui.add_text("x1", 44, 228)
     display_ui.add_text("Cost: 10", 8, 160)
+    display_ui.add_text("ddd ", 100, 228)
 
     game_loop = True
     game_grid = gm.new_game_grid()
@@ -95,7 +96,7 @@ def game():
 
     inventory = inv.Inventory()
     inventory.selected_item = inventory.inventory[0]["item"]
-    money = 100000
+    money = 0
 
     while game_loop:
         display.fill(colors["gray"])
@@ -143,7 +144,7 @@ def game():
         if pygame.mouse.get_pressed()[0]:
             tile_clicked = get_mouse_grid_pos(pygame.mouse.get_pos())
             if tile_clicked:
-                if type(game_grid[tile_clicked[0]][tile_clicked[1]]).__name__ != "LockedTile":
+                if type(game_grid[tile_clicked[0]][tile_clicked[1]]).__name__ not in ["LockedTile", "ImportTile"]:
                     if inventory.selected_item_quantity > 0:
                         if inventory.inventory[inventory.selected_item_index]["name"] != type(game_grid[tile_clicked[0]][tile_clicked[1]]).__name__:
                             inventory.place_item()
@@ -153,8 +154,9 @@ def game():
             tile_clicked = get_mouse_grid_pos(pygame.mouse.get_pos())
             if tile_clicked:
                 if type(game_grid[tile_clicked[0]][tile_clicked[1]]).__name__ not in ["EmptyTile", "LockedTile", "ImportTile"]:
-                    inventory.add_item(type(game_grid[tile_clicked[0]][tile_clicked[1]]).__name__)
-                    gm.place_object(game_grid, tile_clicked, tiles.empty_tile.EmptyTile, rotation)
+                    if type(game_grid[tile_clicked[0]][tile_clicked[1]]).__name__ != "EmptyTile":
+                        inventory.add_item(type(game_grid[tile_clicked[0]][tile_clicked[1]]).__name__)
+                        gm.place_object(game_grid, tile_clicked, tiles.empty_tile.EmptyTile, rotation)
 
         for row in range(0, GRID_HEIGHT):
             for col in range(0, GRID_WIDTH):
@@ -176,6 +178,7 @@ def game():
         display_ui.texts[1].text = f"Expand price: {output_number(expand_price)}"
         display_ui.texts[2].text = f'x{inventory.selected_item_quantity}'
         display_ui.texts[3].text = f"Cost: {get_item_price(inventory.inventory[inventory.selected_item_index])}"
+        display_ui.texts[4].text = f"{inventory.inventory[inventory.selected_item_index]['description']}"
         display_ui.images[0].image = tile_images[inventory.selected_item]
         display_ui.draw()
         surf = pygame.transform.scale(display, WINDOW_SIZE)
