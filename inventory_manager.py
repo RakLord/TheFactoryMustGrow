@@ -33,7 +33,6 @@ class Inventory:
 
     def add_item(self, item, to_max=False):
         for index, items in enumerate(self.inventory):
-            print(items, index)
             if items["name"] == item:
                 items["quantity"] += 1
                 if to_max:

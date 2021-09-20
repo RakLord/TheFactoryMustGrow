@@ -137,7 +137,7 @@ def game():
                         pass
                     if display_ui.buttons[3].clicked:
                         if money > get_item_price(inventory.inventory[inventory.selected_item_index]):
-                            print(f'Adding: {inventory.inventory[inventory.selected_item_index]["name"]}')
+                            # print(f'Adding: {inventory.inventory[inventory.selected_item_index]["name"]}')
                             money -= get_item_price(inventory.inventory[inventory.selected_item_index])
                             inventory.add_item(inventory.inventory[inventory.selected_item_index]["name"], True)
 
