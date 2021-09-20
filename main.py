@@ -11,6 +11,7 @@ spawn_cooldown = 4
 belt_speed = 3  # Lower = Faster
 item_cap = 10
 
+
 available_buildings = [tiles.belt_tile.BeltTile,
                        tiles.simple_upgrader_tile.SimpleUpgraderTile,
                        tiles.electric_upgrader_tile.ElectricUpgraderTile,
@@ -19,15 +20,6 @@ available_buildings = [tiles.belt_tile.BeltTile,
 
 
 # Funcs
-
-
-def output_number(number):
-    num_out = None
-    if number > 1000000:
-        num_out = "{:.2e}".format(number)
-    else:
-        num_out = number
-    return num_out
 
 
 def cycle_selected(selected):
@@ -78,6 +70,7 @@ def draw_highlight(display, mouse_pos, selected_building, rotation):
                          special_flags=BLEND_RGB_ADD)
 
 
+
 def game():
     pygame.init()
     screen = pygame.display.set_mode(WINDOW_SIZE, 0, 32)
@@ -88,11 +81,15 @@ def game():
     display_ui.add_button(IMAGES["prestige_btn"], WINDOW_WIDTH - 68, (UI_BUTTON_HEIGHT + UI_PADDING) * 2)
 
     display_ui.add_text("Money: 0", 8, 0)
+    display_ui.add_text("Active: 0", 8, 18)
 
     game_loop = True
     game_grid = gm.new_game_grid()
     selected = 0
     rotation = 0
+
+    grid_unlocked_level = 4
+    grid_unlocked_tiles = gm.locked_tiles(game_grid, grid_unlocked_level)
 
     money = 10
 
@@ -122,7 +119,9 @@ def game():
             if event.type == MOUSEBUTTONDOWN:
                 if event.button == 1:
                     if display_ui.buttons[0].clicked:  # Upgrades Btn
-                        pass
+                        print("Clicked")
+                        gm.locked_tiles(game_grid, grid_unlocked_level + 1)
+                        grid_unlocked_level += 1
                     if display_ui.buttons[1].clicked:  # Inventory Btn
                         pass
                     if display_ui.buttons[2].clicked:  # Prestige Btn
@@ -131,7 +130,9 @@ def game():
         if pygame.mouse.get_pressed()[0]:
             tile_clicked = get_mouse_grid_pos(pygame.mouse.get_pos())
             if tile_clicked:
-                gm.place_object(game_grid, tile_clicked, selected_building, rotation)
+                print(tile_clicked)
+                if game_grid[tile_clicked[0]][tile_clicked[1]].type != "locked_tile":
+                    gm.place_object(game_grid, tile_clicked, selected_building, rotation)
 
         if pygame.mouse.get_pressed()[2]:
             tile_clicked = get_mouse_grid_pos(pygame.mouse.get_pos())
@@ -155,6 +156,7 @@ def game():
 
         draw_highlight(display, pygame.mouse.get_pos(), selected_building, rotation)
         display_ui.texts[0].text = f"Money: {output_number(money)}"
+        display_ui.texts[1].text = f"Active: {len(im.active_items)}"
         display_ui.draw()
         surf = pygame.transform.scale(display, WINDOW_SIZE)
         screen.blit(surf, (0, 0))

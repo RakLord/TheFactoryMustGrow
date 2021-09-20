@@ -33,7 +33,6 @@ class Item(object):
             pygame.draw.rect(display, (245, 250, 200), self.rect, 1)
 
     def tick(self, **kwargs):
-
         if self.direction == 0 and self.moving:
             self.vector = [0, 1]
         elif self.direction == 1 and self.moving:
@@ -73,6 +72,9 @@ class Item(object):
                                     return False, current_tile
                         else:
                             return "dead", current_tile
+
+        if self.rect.x // CONFIG.TILE_SIZE >= CONFIG.GRID_WIDTH or self.rect.y // CONFIG.TILE_SIZE >= CONFIG.GRID_HEIGHT:
+            return "dead", current_tile
 
         self.rect.x += kwargs.get("belt_speed_value") * self.vector[0]
         self.rect.y += kwargs.get("belt_speed_value") * self.vector[1]

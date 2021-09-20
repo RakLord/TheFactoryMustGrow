@@ -17,3 +17,12 @@ def draw(building_type, display, index1, index2, rotation):
 def calc_dist(obj_1, obj_2):  # Calculates the vector between 2 objects
     dist = math.hypot(obj_1[0] - obj_2[0], obj_1[1] - obj_2[1])
     return dist
+
+
+def output_number(number):
+    num_out = None
+    if number > 1000000:
+        num_out = "{:.2e}".format(number)
+    else:
+        num_out = number
+    return num_out

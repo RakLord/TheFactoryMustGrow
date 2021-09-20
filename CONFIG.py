@@ -6,6 +6,7 @@ import math
 import item_manager as im
 import grid_manager as gm
 import ui_manager as ui
+from utils import *
 import tiles
 from tiles import belt_tile
 from tiles import electric_upgrader_tile
@@ -13,6 +14,7 @@ from tiles import empty_tile
 from tiles import export_tile
 from tiles import import_tile
 from tiles import simple_upgrader_tile
+from tiles import locked_tile
 
 
 WINDOW_SIZE = WINDOW_WIDTH, WINDOW_HEIGHT = 1920, 1080
@@ -35,10 +37,10 @@ DRAW_COLLIDERS = False
 colors = {"gray": (44, 53, 49),
           "blue": (17, 100, 102),
           "peach": (217, 176, 140),
-          "orrange": (255, 203, 154),
+          "orange": (255, 203, 154),
           "metal": (209, 232, 226)}
 
-#### Images ####
+# Images
 IMAGES = {"empty_tile": pygame.image.load("images/empty_tile.png"),
           "belt_tile": pygame.image.load("images/belt_tile.png"),
           "import_tile": pygame.image.load("images/import_tile.png"),
@@ -48,5 +50,6 @@ IMAGES = {"empty_tile": pygame.image.load("images/empty_tile.png"),
           "export_tile": pygame.image.load("images/export_tile.png"),
           "upgrades_btn": pygame.image.load("images/btn_upgrades.png"),
           "prestige_btn": pygame.image.load("images/btn_prestige.png"),
-          "inventory_btn": pygame.image.load("images/btn_inventory.png")}
+          "inventory_btn": pygame.image.load("images/btn_inventory.png"),
+          "locked_tile": pygame.image.load("images/locked_tile.png")}
 
