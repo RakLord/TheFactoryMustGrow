@@ -53,5 +53,6 @@ IMAGES = {"empty_tile": pygame.image.load("images/empty_tile.png"),
           "prestige_btn": pygame.image.load("images/btn_prestige.png"),
           "inventory_btn": pygame.image.load("images/btn_inventory.png"),
           "locked_tile": pygame.image.load("images/locked_tile.png"),
-          "expand_btn": pygame.image.load("images/btn_expand.png")}
+          "expand_btn": pygame.image.load("images/btn_expand.png"),
+          "buy_btn": pygame.image.load("images/btn_buy.png")}
 

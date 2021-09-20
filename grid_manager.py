@@ -23,7 +23,6 @@ def place_object(old_grid, place_pos, new_object, rotation):
 
 
 def locked_tiles(old_grid, unlock_level):
-    new_grid = old_grid
     unlocked_tiles = []
     for row in range(0, unlock_level):
         for col in range(0, unlock_level):

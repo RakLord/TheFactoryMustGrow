@@ -63,6 +63,10 @@ def draw_highlight(display, mouse_pos, selected_building, rotation):
                          special_flags=BLEND_RGB_ADD)
 
 
+def get_item_price(item):
+    return round(item["base_price"] * item["max_quantity"] ** 3)
+
+
 def game():
     pygame.init()
     screen = pygame.display.set_mode(WINDOW_SIZE, 0, 32)
@@ -71,16 +75,17 @@ def game():
     display_ui.add_button(IMAGES["expand_btn"], WINDOW_WIDTH - 68, (UI_BUTTON_HEIGHT + UI_PADDING) * 0)
     display_ui.add_button(IMAGES["inventory_btn"], WINDOW_WIDTH - 68, (UI_BUTTON_HEIGHT + UI_PADDING) * 1)
     display_ui.add_button(IMAGES["prestige_btn"], WINDOW_WIDTH - 68, (UI_BUTTON_HEIGHT + UI_PADDING) * 2)
+    display_ui.add_button(IMAGES["buy_btn"], 8, 180)
 
     display_ui.add_image(IMAGES["empty_tile"], 8, 220)
 
     display_ui.add_text("Money: 0", 8, 0)
     display_ui.add_text("Expand Cost: 0", 8, 18)
     display_ui.add_text("x1", 44, 228)
+    display_ui.add_text("Cost: 10", 8, 160)
 
     game_loop = True
     game_grid = gm.new_game_grid()
-    selected = 0
     rotation = 0
 
     grid_expand_base_price = 100
@@ -92,18 +97,10 @@ def game():
     inventory.selected_item = inventory.inventory[0]["item"]
     money = 10
 
-    old_tiles_placed = 0
-
     while game_loop:
         display.fill(colors["gray"])
         draw_grid(game_grid, display, rotation)
         draw_items(im.active_items, display)
-
-        tiles_placed = 0
-        for row in game_grid:
-            for col in row:
-                if col.type != "locked_tile" and col.type != "empty_tile":
-                    tiles_placed += 1
 
         expand_price = round(grid_expand_base_price * grid_expand_level ** 3)
 
@@ -141,18 +138,18 @@ def game():
         if pygame.mouse.get_pressed()[0]:
             tile_clicked = get_mouse_grid_pos(pygame.mouse.get_pos())
             if tile_clicked:
-                print(old_tiles_placed, tiles_placed)
-                if game_grid[tile_clicked[0]][tile_clicked[1]].type != "locked_tile":
-                    if tiles_placed == old_tiles_placed:  ## WORK ON TILES PLACED LOGIC, CHECK IF NEW TILE HAS NOT BEEN PLACED, IF SO THEN ALLOW THEM TO PLACE TILE....
-                        if inventory.selected_item_quantity > 0:
-                            old_tiles_placed = tiles_placed
+                if type(game_grid[tile_clicked[0]][tile_clicked[1]]).__name__ != "LockedTile":
+                    if inventory.selected_item_quantity > 0:
+                        if inventory.inventory[inventory.selected_item_index]["name"] != type(game_grid[tile_clicked[0]][tile_clicked[1]]).__name__:
                             inventory.place_item()
                             gm.place_object(game_grid, tile_clicked, inventory.selected_item, rotation)
 
         if pygame.mouse.get_pressed()[2]:
             tile_clicked = get_mouse_grid_pos(pygame.mouse.get_pos())
             if tile_clicked:
-                gm.place_object(game_grid, tile_clicked, tiles.empty_tile.EmptyTile, rotation)
+                if type(game_grid[tile_clicked[0]][tile_clicked[1]]).__name__ not in ["EmptyTile", "LockedTile", "ImportTile"]:
+                    inventory.add_item(type(game_grid[tile_clicked[0]][tile_clicked[1]]).__name__)
+                    gm.place_object(game_grid, tile_clicked, tiles.empty_tile.EmptyTile, rotation)
 
         for row in range(0, GRID_HEIGHT):
             for col in range(0, GRID_WIDTH):
@@ -169,10 +166,12 @@ def game():
                     money += item.value
                     im.active_items.remove(item)
 
+        print(inventory.inventory[inventory.selected_item_index]["quantity"])
         draw_highlight(display, pygame.mouse.get_pos(), inventory.selected_item, rotation)
         display_ui.texts[0].text = f"Money: {output_number(money)}"
         display_ui.texts[1].text = f"Expand price: {output_number(expand_price)}"
         display_ui.texts[2].text = f'x{inventory.selected_item_quantity}'
+        display_ui.texts[3].text = f"Cost: {get_item_price(inventory.inventory[inventory.selected_item_index])}"
         display_ui.images[0].image = tile_images[inventory.selected_item]
         display_ui.draw()
         surf = pygame.transform.scale(display, WINDOW_SIZE)
