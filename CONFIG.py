@@ -3,7 +3,14 @@ from pygame.locals import *
 import sys
 import random
 import math
-from objects import *
+import item_manager as im
+import tiles
+from tiles import belt_tile
+from tiles import electric_upgrader_tile
+from tiles import empty_tile
+from tiles import export_tile
+from tiles import import_tile
+from tiles import simple_upgrader_tile
 
 
 WINDOW_SIZE = WINDOW_WIDTH, WINDOW_HEIGHT = 1920, 1080

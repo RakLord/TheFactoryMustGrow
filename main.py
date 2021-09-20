@@ -1,3 +1,4 @@
+import tiles.simple_upgrader_tile
 from CONFIG import *
 import grid_manager as gm
 import item_manager as im
@@ -12,7 +13,11 @@ spawn_cooldown = 4
 belt_speed = 3  # Lower = Faster
 item_cap = 10
 
-available_buildings = [BeltTile, SimpleUpgraderTile, ElectricUpgraderTile, ImportTile, ExportTile]
+available_buildings = [tiles.belt_tile.BeltTile,
+                       tiles.simple_upgrader_tile.SimpleUpgraderTile,
+                       tiles.electric_upgrader_tile.ElectricUpgraderTile,
+                       tiles.import_tile.ImportTile,
+                       tiles.export_tile.ExportTile]
 
 
 # Funcs
