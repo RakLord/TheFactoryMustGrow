@@ -3,6 +3,7 @@ from pygame.locals import *
 import sys
 import random
 import math
+import inventory_manager as inv
 import item_manager as im
 import grid_manager as gm
 import ui_manager as ui
@@ -51,5 +52,6 @@ IMAGES = {"empty_tile": pygame.image.load("images/empty_tile.png"),
           "upgrades_btn": pygame.image.load("images/btn_upgrades.png"),
           "prestige_btn": pygame.image.load("images/btn_prestige.png"),
           "inventory_btn": pygame.image.load("images/btn_inventory.png"),
-          "locked_tile": pygame.image.load("images/locked_tile.png")}
+          "locked_tile": pygame.image.load("images/locked_tile.png"),
+          "expand_btn": pygame.image.load("images/btn_expand.png")}
 

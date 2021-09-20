@@ -82,4 +82,4 @@ class Item(object):
 
 def spawn_ore(display, rotation, spawn_tile_grid_y, spawn_tile_grid_x):
     print(f"New Item:\n > Type: iron_ore\n > Grid_X: {spawn_tile_grid_x} | Grid_Y: {spawn_tile_grid_y}")
-    active_items.append(Item(display, "iron_ore", spawn_tile_grid_y * CONFIG.TILE_SIZE, spawn_tile_grid_x * CONFIG.TILE_SIZE, rotation, 250000))
+    active_items.append(Item(display, "iron_ore", spawn_tile_grid_y * CONFIG.TILE_SIZE, spawn_tile_grid_x * CONFIG.TILE_SIZE, rotation, 1))
